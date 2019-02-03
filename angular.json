@@ -7,7 +7,7 @@
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
-      "prefix": "app",
+      "prefix": "bwm",
       "schematics": {},
       "architect": {
         "build": {
@@ -112,7 +112,7 @@
     "bwm-cli-e2e": {
       "root": "e2e/",
       "projectType": "application",
-      "prefix": "",
+      "prefix": "bwm",
       "architect": {
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
@@ -139,4 +139,5 @@
     }
   },
   "defaultProject": "bwm-cli"
+  
 }
