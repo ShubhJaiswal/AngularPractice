@@ -1,0 +1,191 @@
+[1mdiff --git a/package.json b/package.json[m
+[1mindex 318cebf..549e069 100644[m
+[1m--- a/package.json[m
+[1m+++ b/package.json[m
+[36m@@ -3,13 +3,13 @@[m
+   "version": "0.0.0",[m
+   "scripts": {[m
+     "ng": "ng",[m
+[31m-    "start": "ng serve",[m
+[32m+[m[32m    "start": "ng serve --proxy-config proxy.conf.json",[m
+     "build": "ng build",[m
+     "test": "ng test",[m
+     "lint": "ng lint",[m
+     "e2e": "ng e2e"[m
+   },[m
+[31m-  "private": true,[m
+[32m+[m[32m  "private": true,[m[41m [m
+   "dependencies": {[m
+     "@angular/animations": "~7.2.0",[m
+     "@angular/common": "~7.2.0",[m
+[1mdiff --git a/src/app/rental/rental-detail/rental-detail.component.ts b/src/app/rental/rental-detail/rental-detail.component.ts[m
+[1mindex d46b00f..f506df4 100644[m
+[1m--- a/src/app/rental/rental-detail/rental-detail.component.ts[m
+[1m+++ b/src/app/rental/rental-detail/rental-detail.component.ts[m
+[36m@@ -10,7 +10,7 @@[m [mimport { Observable } from 'rxjs';[m
+ })[m
+ export class RentalDetailComponent implements OnInit {[m
+ [m
+[31m- currentId :string;[m
+[32m+[m[32m// currentId :string;[m
+   rental:Rental;[m
+   constructor(private route: ActivatedRoute, private rentalServie : RentalService) { }[m
+ [m
+[36m@@ -23,7 +23,7 @@[m [mexport class RentalDetailComponent implements OnInit {[m
+     });[m
+   }[m
+     getRental(rentalId:string) {[m
+[31m-      this.rentalServie.getRentalById(rentalId).subscribe([m
+[32m+[m[32m      this.rentalServie.getRentals().subscribe([m
+         (rental: Rental) => {[m
+             this.rental = rental;[m
+         }[m
+[1mdiff --git a/src/app/rental/rental-list/rental-list.component.ts b/src/app/rental/rental-list/rental-list.component.ts[m
+[1mindex e53406a..a2d9ca5 100644[m
+[1m--- a/src/app/rental/rental-list/rental-list.component.ts[m
+[1m+++ b/src/app/rental/rental-list/rental-list.component.ts[m
+[36m@@ -15,17 +15,11 @@[m [mexport class RentalListComponent implements OnInit {[m
+ [m
+   ngOnInit() {[m
+     //this.rentals = this.rentalService.getRentals();[m
+[31m-[m
+     const rentalObservable = this.rentalService.getRentals();[m
+[31m-    rentalObservable.subscribe([m
+[31m-[m
+[31m-      (rentals: Rental[]) => {[m
+[32m+[m[32m     rentalObservable.subscribe(  (rentals: Rental[]) => {[m[41m      [m
+         this.rentals = rentals;[m
+[31m-      },[m
+[31m-      (err) => {[m
+[31m-      },[m
+[31m-      () => {[m
+[31m-      });[m
+[32m+[m[32m        console.log(rentals);[m
+[32m+[m[32m    });[m
+   }[m
+ [m
+ }[m
+[1mdiff --git a/src/app/rental/rental.module.ts b/src/app/rental/rental.module.ts[m
+[1mindex 9548d5a..7a66e11 100644[m
+[1m--- a/src/app/rental/rental.module.ts[m
+[1m+++ b/src/app/rental/rental.module.ts[m
+[36m@@ -6,6 +6,7 @@[m [mimport { RentalListItemComponent } from './rental-list-item/rental-list-item.com[m
+ import { RentalService } from './shared/rental.service';[m
+ import { RentalDetailComponent } from './rental-detail/rental-detail.component';[m
+ import { RouterModule, Routes } from '@angular/router';[m
+[32m+[m[32mimport { HttpClientModule } from '@angular/common/http';[m
+ [m
+ const route : Routes =  [[m
+     { path:'rentals', component:RentalComponent, [m
+[36m@@ -24,7 +25,9 @@[m [mconst route : Routes =  [[m
+     ],[m
+     imports : [[m
+         RouterModule.forChild(route),[m
+[31m-        CommonModule],[m
+[32m+[m[32m        CommonModule,[m
+[32m+[m[32m        HttpClientModule[m
+[32m+[m[32m    ],[m
+     providers : [RentalService][m
+ })[m
+ [m
+[1mdiff --git a/src/app/rental/shared/rental.model.ts b/src/app/rental/shared/rental.model.ts[m
+[1mindex 3906ad6..aad2667 100644[m
+[1m--- a/src/app/rental/shared/rental.model.ts[m
+[1m+++ b/src/app/rental/shared/rental.model.ts[m
+[36m@@ -1,5 +1,5 @@[m
+ export class Rental {[m
+[31m-    id: string;[m
+[32m+[m[32m    _id: string;[m
+     title : string;[m
+     city: string;[m
+     street: string;[m
+[1mdiff --git a/src/app/rental/shared/rental.service.ts b/src/app/rental/shared/rental.service.ts[m
+[1mindex c664344..28851c7 100644[m
+[1m--- a/src/app/rental/shared/rental.service.ts[m
+[1m+++ b/src/app/rental/shared/rental.service.ts[m
+[36m@@ -1,12 +1,34 @@[m
+ import { Injectable } from '@angular/core';[m
+ import { Observable } from 'rxjs';[m
+ import { Rental } from './rental.model';[m
+[31m-@Injectable()[m
+[32m+[m[32mimport { HttpClient } from '@angular/common/http';[m
+[32m+[m[32mimport { Options } from 'selenium-webdriver/edge';[m
+ [m
+ [m
+[32m+[m[32m@Injectable()[m
+ export class RentalService{[m
+ [m
+[31m- private rentals : Rental[] = [[m
+[32m+[m[32m  constructor(private http : HttpClient){ }[m
+[32m+[m
+[32m+[m[41m  [m
+[32m+[m[32m  public getRentalById(rentalId:string): Observable<any> {[m
+[32m+[m[32m      return this.http.get('/api/v1/rentals'+ rentalId);[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  public getRentals  (): Observable<any> {[m[41m [m
+[32m+[m[32m      return this.http.get('/api/v1/rentals');[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m[32m /*private rentals : Rental[] = [[m
+     {[m
+       id: "1",[m
+       title: "Cental Apartment",[m
+[36m@@ -60,11 +82,12 @@[m [mexport class RentalService{[m
+       createdAt: "23/12/2017"[m
+     }[m
+     [m
+[31m-  ];[m
+[32m+[m[32m  ]; *[m
+[32m+[m[32m  public getRentalById(renalId:string): Observable<any> {[m
+ [m
+[31m-  public getRentalById(renalId:string): Observable<Rental> {[m
+[32m+[m[32m    return this.http.get('/api/v1/rentals/'+ renalId);[m
+ [m
+[31m-    return new Observable<Rental>( (observer)=> [m
+[32m+[m[32m/* return new Observable<Rental>( (observer)=>[m[41m [m
+     {[m
+         setTimeout( () =>{[m
+             const foundRental = this.rentals.find( (rental) => {[m
+[36m@@ -74,11 +97,13 @@[m [mexport class RentalService{[m
+             observer.next(foundRental);    [m
+         },500);[m
+         [m
+[31m-    })[m
+[32m+[m[32m    }) *[m
+   [m
+   }[m
+ [m
+[31m-  public getRentals  (): Observable<Rental[]> { [m
+[32m+[m[32m  public getRentals  (): Observable<any> {[m[41m [m
+[32m+[m
+[32m+[m[32m    return this.http.get('/api/v1/rentals');[m
+     /*  const rentalObservable : Observable<Rental[]> = new Observable( (observer) => { [m
+           setTimeout( () => { [m
+              observer.next(this.rentals);[m
+[36m@@ -94,10 +119,10 @@[m [mexport class RentalService{[m
+     })[m
+     return rentalObservable;[m
+   }*/[m
+[31m-  return new Observable( (observer) => { [m
+[32m+[m[32m  /*return new Observable( (observer) => {[m[41m [m
+       setTimeout( () => { [m
+          observer.next(this.rentals);[m
+       },1000)[m
+[31m-    });[m
+[31m-  };[m
+[31m-}[m
+\ No newline at end of file[m
+[32m+[m[32m    });*[m
+[32m+[m[32m  };[m[41m [m
+[32m+[m[32m}*/[m
+\ No newline at end of file[m
