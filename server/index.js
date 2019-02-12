@@ -16,6 +16,7 @@ app.use('/api/v1/rentals', rentalRoutes);
 //     res.json({'success': true});
 // })
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, function() {
+app.listen(PORT, function(req,res) {
         console.log('I am running');
+        console.log(res);
 })

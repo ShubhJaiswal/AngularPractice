@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class RentalDetailComponent implements OnInit {
 
- currentId :string;
+// currentId :string;
   rental:Rental;
   constructor(private route: ActivatedRoute, private rentalServie : RentalService) { }
 
@@ -23,7 +23,7 @@ export class RentalDetailComponent implements OnInit {
     });
   }
     getRental(rentalId:string) {
-      this.rentalServie.getRentalById(rentalId).subscribe(
+      this.rentalServie.getRentals().subscribe(
         (rental: Rental) => {
             this.rental = rental;
         }
