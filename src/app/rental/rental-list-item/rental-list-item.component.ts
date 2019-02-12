@@ -9,8 +9,9 @@ export class RentalListItemComponent implements OnInit {
 
   @Input() rental :any;
   constructor() { }
-
+  
   ngOnInit() {
+    console.log(this.rental);
   }
 
 }
