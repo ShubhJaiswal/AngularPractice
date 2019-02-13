@@ -1,34 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Rental } from './rental.model';
-import { HttpClient } from '@angular/common/http';
-import { Options } from 'selenium-webdriver/edge';
-
-
 @Injectable()
+
+
 export class RentalService{
 
-  constructor(private http : HttpClient){ }
-
-  
-  public getRentalById(rentalId:string): Observable<any> {
-      return this.http.get('/api/v1/rentals'+ rentalId);
-  }
-
-  public getRentals  (): Observable<any> { 
-      return this.http.get('/api/v1/rentals');
-  }
-
-}
-
-
-
-
-
-
-
-
- /*private rentals : Rental[] = [
+ private rentals : Rental[] = [
     {
       id: "1",
       title: "Cental Apartment",
@@ -82,12 +60,11 @@ export class RentalService{
       createdAt: "23/12/2017"
     }
     
-  ]; *
-  public getRentalById(renalId:string): Observable<any> {
+  ];
 
-    return this.http.get('/api/v1/rentals/'+ renalId);
+  public getRentalById(renalId:string): Observable<Rental> {
 
-/* return new Observable<Rental>( (observer)=> 
+    return new Observable<Rental>( (observer)=> 
     {
         setTimeout( () =>{
             const foundRental = this.rentals.find( (rental) => {
@@ -97,13 +74,11 @@ export class RentalService{
             observer.next(foundRental);    
         },500);
         
-    }) *
+    })
   
   }
 
-  public getRentals  (): Observable<any> { 
-
-    return this.http.get('/api/v1/rentals');
+  public getRentals  (): Observable<Rental[]> { 
     /*  const rentalObservable : Observable<Rental[]> = new Observable( (observer) => { 
           setTimeout( () => { 
              observer.next(this.rentals);
@@ -119,10 +94,10 @@ export class RentalService{
     })
     return rentalObservable;
   }*/
-  /*return new Observable( (observer) => { 
+  return new Observable( (observer) => { 
       setTimeout( () => { 
          observer.next(this.rentals);
       },1000)
-    });*
-  }; 
-}*/
+    });
+  };
+}
