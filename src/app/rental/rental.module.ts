@@ -7,7 +7,8 @@ import { RentalService } from './shared/rental.service';
 import { RentalDetailComponent } from './rental-detail/rental-detail.component';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-
+import { NgPipesModule } from 'ngx-pipes';
+import { UppercasePipe } from '../common/pipes/uppercase.pipe';
 const route : Routes =  [
     { path:'rentals', component:RentalComponent, 
         children: [
@@ -21,12 +22,15 @@ const route : Routes =  [
         RentalComponent,
         RentalListComponent,
         RentalListItemComponent,
-        RentalDetailComponent
+        RentalDetailComponent,
+        UppercasePipe
     ],
     imports : [
         RouterModule.forChild(route),
         CommonModule,
-        HttpClientModule
+        HttpClientModule,
+        NgPipesModule,
+        
     ],
     providers : [RentalService]
 })

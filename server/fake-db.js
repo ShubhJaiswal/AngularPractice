@@ -6,19 +6,22 @@ class FakeDb {
               title: "Cental Apartment",
               city: "New York",
               street: "Times Square",
-              category: "apartment",
-              image: "https://via.placeholder.com/350X250",
+              category: "house",
+              image: "https://booksync-jerga-prod.s3.amazonaws.com/uploads/rental/image/5/image.jpeg",
               bedrooms: 3,
+              shared : false,
               description: "very nice apartment",
-              dailyRate: 34
+              dailyRate: 34,
+              
             },
             {
               title: "Cental Apartment 2",
               city: "Banglore",
               street: "Kadubesanhalli",
               category: "apartment",
-              image: "https://via.placeholder.com/350X250",
+              image: "https://booksync-jerga-prod.s3.amazonaws.com/uploads/rental/image/5/image.jpeg",
               bedrooms: 2,
+              shared : true,
               description: "Wonderful apartment",
               dailyRate: 21
             },
@@ -26,10 +29,11 @@ class FakeDb {
               title: "Cental Apartment 3",
               city: "Indore",
               street: "Bhavarkuan",
-              category: "Multi",
-              image: "https://via.placeholder.com/350X250",
+              category: "multi",
+              image: "https://booksync-jerga-prod.s3.amazonaws.com/uploads/rental/image/5/image.jpeg",
               bedrooms: 5,
-              description: "A big multi flat",
+              shared : false,
+              description: "very nice apartment in center of the city",
               dailyRate: 53
             },
             {
@@ -37,8 +41,9 @@ class FakeDb {
               city: "Delhi",
               street: "MG Road",
               category: "apartment",
-              image: "https://via.placeholder.com/350X250",
+              image: "https://booksync-jerga-prod.s3.amazonaws.com/uploads/rental/image/5/image.jpeg",
               bedrooms: 6,
+              shared : true,
               description: "Good apartment",
               dailyRate: 20
             }

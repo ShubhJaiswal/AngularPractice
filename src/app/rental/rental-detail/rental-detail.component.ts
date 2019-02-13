@@ -22,10 +22,11 @@ export class RentalDetailComponent implements OnInit {
 
     });
   }
-    getRental(rentalId:string) {
-      this.rentalServie.getRentals().subscribe(
+    getRental(rentalId:string) { debugger
+      this.rentalServie.getRentalById(rentalId).subscribe(
         (rental: Rental) => {
             this.rental = rental;
+            console.log('this.rental'+rental);
         }
       )
     }
