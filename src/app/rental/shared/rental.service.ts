@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { Rental } from './rental.model';
 import { HttpClient } from '@angular/common/http';
 import { Options } from 'selenium-webdriver/edge';
+import { jsonpCallbackContext } from '@angular/common/http/src/module';
 
 
 @Injectable()
@@ -15,8 +16,8 @@ export class RentalService{
       return this.http.get('/api/v1/rentals/'+ rentalId);
   }
 
-  public getRentals  (): Observable<any> { 
-      return this.http.get('/api/v1/rentals');
+  public getRentals  (): Observable<any> {  debugger
+      return this.http.get('/api/v1/rentals/');
   }
 
 }
