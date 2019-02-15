@@ -9,6 +9,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { NgPipesModule } from 'ngx-pipes';
 import { UppercasePipe } from '../common/pipes/uppercase.pipe';
+import {  MapModule } from '../common/map/map.module';
 const route : Routes =  [
     { path:'rentals', component:RentalComponent, 
         children: [
@@ -30,6 +31,7 @@ const route : Routes =  [
         CommonModule,
         HttpClientModule,
         NgPipesModule,
+        MapModule
         
     ],
     providers : [RentalService]
