@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const schema = mongoose.Schema;
 
-    
+
 const rentalSchema = new schema({
 
     title : { type: String, required:true, max:[128, 'To long, max charecter is 128']},
@@ -13,9 +13,9 @@ const rentalSchema = new schema({
     shared : Boolean,
     description : { type: String, required: true},
     dailyRate : Number,
-    createdAt : { type: Date, default : Date.now }
-  //  user : { type: schema.Types.ObjectId, ref: 'User' }
-    
+    createdAt : { type: Date, default : Date.now },
+    user : { type: schema.Types.ObjectId, ref: 'User' }
+
 });
 
 module.exports = mongoose.model('Rental', rentalSchema);
