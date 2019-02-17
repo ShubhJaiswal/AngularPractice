@@ -11,12 +11,12 @@ export class RentalService{
 
   constructor(private http : HttpClient){ }
 
-  
+
   public getRentalById(rentalId:string): Observable<any> {
       return this.http.get('/api/v1/rentals/'+ rentalId);
   }
 
-  public getRentals  (): Observable<any> {  debugger
+  public getRentals  (): Observable<any> {
       return this.http.get('/api/v1/rentals/');
   }
 
@@ -82,31 +82,31 @@ export class RentalService{
       shared: false,
       createdAt: "23/12/2017"
     }
-    
+
   ]; *
   public getRentalById(renalId:string): Observable<any> {
 
     return this.http.get('/api/v1/rentals/'+ renalId);
 
-/* return new Observable<Rental>( (observer)=> 
+/* return new Observable<Rental>( (observer)=>
     {
         setTimeout( () =>{
             const foundRental = this.rentals.find( (rental) => {
                 return rental.id == renalId;
             });
-              
-            observer.next(foundRental);    
+
+            observer.next(foundRental);
         },500);
-        
+
     }) *
-  
+
   }
 
-  public getRentals  (): Observable<any> { 
+  public getRentals  (): Observable<any> {
 
     return this.http.get('/api/v1/rentals');
-    /*  const rentalObservable : Observable<Rental[]> = new Observable( (observer) => { 
-          setTimeout( () => { 
+    /*  const rentalObservable : Observable<Rental[]> = new Observable( (observer) => {
+          setTimeout( () => {
              observer.next(this.rentals);
           },1000)
 
@@ -120,10 +120,10 @@ export class RentalService{
     })
     return rentalObservable;
   }*/
-  /*return new Observable( (observer) => { 
-      setTimeout( () => { 
+  /*return new Observable( (observer) => {
+      setTimeout( () => {
          observer.next(this.rentals);
       },1000)
     });*
-  }; 
+  };
 }*/
