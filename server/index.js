@@ -10,7 +10,7 @@ const rentalRoutes = require('./routes/rentals'), userRoutes = require('./routes
 
 mongoose.connect(config.DB_URI).then( () => {
     const fakDb = new FakeDb();
-    fakDb.seedDb();
+    //fakDb.seedDb(); // do not need to push changes on the database again and again
 });
 
 const app = express();
