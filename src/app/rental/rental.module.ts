@@ -10,29 +10,35 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgPipesModule } from 'ngx-pipes';
 import { UppercasePipe } from '../common/pipes/uppercase.pipe';
 import {  MapModule } from '../common/map/map.module';
-const route : Routes =  [
-    { path:'rentals', component:RentalComponent, 
+import { AuthGuard } from '../auth/shared/auth.gaurd';
+import { Daterangepicker } from 'ng2-daterangepicker';
+import { RentalDetailBookingComponent } from './rental-detail/rental-detail-booking/rental-detail-booking.component';
+
+const route: Routes =  [
+    { path: 'rentals', component: RentalComponent,
         children: [
-            {path:'', component:RentalListComponent},
-            {path:':rentalId', component:RentalDetailComponent}
+            {path: '', component: RentalListComponent},
+            {path: ':rentalId', component: RentalDetailComponent, canActivate: [AuthGuard]}
         ]
     },
-]
+];
 @NgModule({
     declarations : [
         RentalComponent,
         RentalListComponent,
         RentalListItemComponent,
         RentalDetailComponent,
-        UppercasePipe
+        UppercasePipe,
+        RentalDetailBookingComponent
     ],
     imports : [
         RouterModule.forChild(route),
         CommonModule,
         HttpClientModule,
         NgPipesModule,
-        MapModule
-        
+        MapModule,
+        Daterangepicker
+
     ],
     providers : [RentalService]
 })
