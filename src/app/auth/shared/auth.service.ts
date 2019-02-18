@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 
 class DecodedToken {
-  exp: number = 0;
+  exp: number = 0 ;
   username: string = '';
 }
 @Injectable()
@@ -34,7 +34,7 @@ export class AuthService {
   }
 
   public login(userData: any): Observable<any> {
-    return this.http.post('/api/v1/users/auth', userData).map((token: string) => this.saveAuthToken(token));
+    return this.http.post('/api/v1/users/auth/', userData).map((token: string) => this.saveAuthToken(token));
     //   (token) => {
     //     return this.saveAuthToken(token);
     //   }
@@ -49,10 +49,13 @@ export class AuthService {
     return moment().isBefore(this.getExpiration());
   }
 
+  public getAuthToken(): string {
+    return localStorage.getItem('bwm_auth');
+  }
   public logout() {
-    localStorage.removeItem('bwm-auth');
-    localStorage.removeItem('bwm-meta');
 
+    localStorage.removeItem('bwm_auth');
+    localStorage.removeItem('bwm_meta');
     this.decodedToken = new DecodedToken();
   }
 

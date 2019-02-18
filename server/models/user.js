@@ -4,7 +4,7 @@ const mongoose =  require('mongoose');
 const schema = mongoose.Schema;
 
 const userSchema = new schema({
-    userName : {type : String,
+    username : {type : String,
                 min: [4, 'Too short, min charecter is 4'],
                 max: [ 32 , 'Too long, Max charecter is 32']
     },

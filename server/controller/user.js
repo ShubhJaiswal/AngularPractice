@@ -18,11 +18,10 @@ exports.auth = function (req, res) {
     if (user.hasSamePassword(password)) {
       debugger
       //return jwt token.
-      const token = jwt.sign({
-        userId: user.Id,
-        username: user.username
-      }, config.SECRET, { expiresIn: '1h' });
 
+      const token = jwt.sign({ userId: user.id,
+        username: user.username },
+        config.SECRET, { expiresIn: '1h'});
       return res.json(token);
     } else {
       return res.status(422).send({ errors: [{ title: 'Wrong Data!', detail: 'Wrong email and password!' }] })
