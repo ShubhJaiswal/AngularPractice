@@ -70,7 +70,7 @@ exports.register = function (req, res) {
   // res.json({username,email});
 }
 
-exports.authMiddleware = function (req, res, next) {
+exports.authMiddleware = function (req, res, next) { debugger
   const token = req.header.authorization;
   if (token) {
     const user = parseToken(token);
@@ -99,8 +99,6 @@ function parseToken(token) {
 function notAuthorized(res) {
   return res.status(401).send({ errors: [{ title: 'Not authorized', detail: 'You need to login to get access!' }] });
 }
-
-
 
 
 

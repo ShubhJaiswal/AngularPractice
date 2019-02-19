@@ -6,7 +6,9 @@ const bcrypt = require('bcrypt');
 const config = require('./config/dev');
 const FakeDb = require('./fake-db');
 
-const rentalRoutes = require('./routes/rentals'), userRoutes = require('./routes/users');
+const rentalRoutes = require('./routes/rentals');
+const userRoutes = require('./routes/users');
+const bookingRoutes = require('./routes/booking');
 
 mongoose.connect(config.DB_URI).then( () => {
     const fakDb = new FakeDb();
@@ -17,6 +19,8 @@ const app = express();
 app.use(bodyParser.json());
 app.use('/api/v1/rentals', rentalRoutes);
 app.use('/api/v1/users', userRoutes);
+//app.use('/app/v1/bookings',bookingRoutes);
+app.use('/api/v1/booking',bookingRoutes);
 // app.get('/rentals',function(req,res){
 //     res.json({'success': true});
 // })
