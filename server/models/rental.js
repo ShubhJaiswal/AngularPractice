@@ -14,7 +14,8 @@ const rentalSchema = new schema({
     description : { type: String, required: true},
     dailyRate : Number,
     createdAt : { type: Date, default : Date.now },
-    user : { type: schema.Types.ObjectId, ref: 'User' }
+    user : { type: schema.Types.ObjectId, ref: 'User' },
+    bookings :[{ type : schema.Types.ObjectId, ref: 'Booking'}] //user can have muiltiple booking
 
 });
 

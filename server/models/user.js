@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const mongoose =  require('mongoose');
 const schema = mongoose.Schema;
 
+
 const userSchema = new schema({
     username : {type : String,
                 min: [4, 'Too short, min charecter is 4'],
@@ -21,7 +22,8 @@ const userSchema = new schema({
                 min:[ 4 , 'Too short, min charecter is 4'],
                 min:[ 32 , 'Too long, Max charecter is 32']
     },
-    rentals : [{type: schema.Types.ObjectId, ref: 'Rental'}]
+    rentals : [{type: schema.Types.ObjectId, ref: 'Rental'}],
+    bookings :[{ type : schema.Types.ObjectId, ref: 'Booking'}]
 
 });
 

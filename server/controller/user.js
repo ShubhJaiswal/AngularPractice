@@ -122,8 +122,6 @@ function notAuthorized(res) {
 
 
 
-
-
 // const User =  require('../models/user')
 
 // exports.auth =  function (req, res) {
