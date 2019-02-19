@@ -70,7 +70,7 @@ exports.register = function (req, res) {
   // res.json({username,email});
 }
 
-exports.authMiddleware = function (req, res, next) {
+exports.authMiddleware = function (req, res, next) { debugger
   const token = req.header.authorization;
   if (token) {
     const user = parseToken(token);
