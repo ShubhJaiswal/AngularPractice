@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 app.use('/api/v1/rentals', rentalRoutes);
 app.use('/api/v1/users', userRoutes);
 //app.use('/app/v1/bookings',bookingRoutes);
-app.use('/api/v1/booking',bookingRoutes);
+app.use('/api/v1/bookings',bookingRoutes);
 // app.get('/rentals',function(req,res){
 //     res.json({'success': true});
 // })

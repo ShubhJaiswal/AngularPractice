@@ -71,7 +71,8 @@ exports.register = function (req, res) {
 }
 
 exports.authMiddleware = function (req, res, next) { debugger
-  const token = req.header.authorization;
+  // console.log(req);
+  const token = req.headers.authorization;
   if (token) {
     const user = parseToken(token);
 
@@ -81,7 +82,7 @@ exports.authMiddleware = function (req, res, next) { debugger
       }
       if (user) {
         res.locals.user = user;
-        next();
+        return next();
       } else {
         return notAuthorized(res);
       }
